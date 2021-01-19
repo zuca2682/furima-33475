@@ -23,10 +23,10 @@
 | ------ | ------ | ----------- |
 | name | string | null: false |
 | explain | text | null: false |
-| category_id | string | null: false |
-| state_id | string | null: false |
-| burden_id | string | null: false |
-| area_id | string | null: false |
+| category_id | integer | null: false |
+| state_id | integer | null: false |
+| burden_id | integer | null: false |
+| area_id | integer | null: false |
 | delivery_id | integer | null: false |
 | price | integer | null: false |
 | user | references | foreign_key: true |
