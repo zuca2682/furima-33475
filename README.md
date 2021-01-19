@@ -1,24 +1,66 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users テーブル
 
-Things you may want to cover:
+| Column   | Type   | Options     |
+| -------- | ------ | ----------- |
+| nickname | string | null: false |
+| email    | string | unique: true |
+| password | string | null: false |
+| last_name | string | null: false |
+| first_name | string | null: false |
+| kana_last_name | string | null: false |
+| kana_first_name | string | null: false |
+| year_birth | string | null: false |
+| month_birth | string | null: false |
+| day_birth | string | null: false |
 
-* Ruby version
+### Association
+- has_many :items
+- has_many :orders
 
-* System dependencies
+## items テーブル
 
-* Configuration
+| Column | Type   | Options     |
+| ------ | ------ | ----------- |
+| image |         | null: false |
+| name | string | null: false |
+| explain | text | null: false |
+| category | string | null: false |
+| state | string | null: false |
+| burden | string | null: false |
+| area | string | null: false |
+| delivery | string | null: false |
+| price | string | null: false |
+| user_id | references | foreign_key: true |
 
-* Database creation
+### Association
+- belongs_to :user
+- has_one :order
 
-* Database initialization
+## orders テーブル
 
-* How to run the test suite
+| Column  | Type       | Options    |
+| ------- | ---------- | ---------- |
+| user_id | references | foreign_key: true |
+| item_id | references | foreign_key: true |
 
-* Services (job queues, cache servers, search engines, etc.)
+### Association
+- has_one :address
+- belongs_to :user
+- belongs_to :item
 
-* Deployment instructions
+## addresses テーブル
 
-* ...
+| Column  | Type       | Options    |
+| ------- | ---------- | ---------- |
+| postal_code | string | null: false |
+| prefectures | string | null: false |
+| city | string | null: false |
+| address | string | null: false |
+| building | string |               |
+| phone_number | string | null: false |
+| order_id | references | foreign_key: true |
+
+### Association
+- belongs_to :order
