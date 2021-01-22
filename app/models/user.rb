@@ -8,7 +8,8 @@ class User < ApplicationRecord
 
   with_options presence: true do
     validates :nickname
-    validates :password, format: { with: /[a-z\d]/}
+    PASSWORD_REGEX = /(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]/.freeze
+    validates_format_of :password, with: PASSWORD_REGEX, message: 'には半角の英字と数字の両方を含めて設定してください'
     with_options format: { with: /\A[ぁ-んァ-ン一-龥]/ } do
       validates :last_name
       validates :first_name
