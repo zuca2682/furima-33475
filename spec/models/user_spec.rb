@@ -52,9 +52,15 @@ RSpec.describe User, type: :model do
       end
 
       it 'passwordが半角英数字混合でない場合だと登録できない' do
-        @user.password = '椅子あj'
+        @user.password = '椅子あj３r'
         @user.valid?
-        expect(@user.errors.full_messages).to include 'Password is too short (minimum is 6 characters)'
+        expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
+      end
+
+      it 'passwordが全角だと登録できない' do
+        @user.password = '１２３４ａｂｃｄｅ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
       end
 
       it 'passwordが英語のみだと登録できない' do
@@ -70,9 +76,10 @@ RSpec.describe User, type: :model do
       end
 
       it 'password_confirmationがpasswordと一致しない場合、登録できない' do
-        @user.password = ''
+        @user.password = 'zucazuca2682'
+        @user.password_confirmation = '2682zucazuca'
         @user.valid?
-        expect(@user.errors.full_messages).to include "Password can't be blank"
+        expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
       end
 
       it 'last_nameが空だと登録できない' do
@@ -111,6 +118,12 @@ RSpec.describe User, type: :model do
         expect(@user.errors.full_messages).to include 'Kana last name is invalid'
       end
 
+      it 'kana_last_nameが半角文字では登録できない' do
+        @user.kana_first_name = 'ｶﾀｶﾅ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include 'Kana first name is invalid'
+      end
+
       it 'kana_first_nameが空だと登録できない' do
         @user.kana_first_name = ''
         @user.valid?
@@ -119,6 +132,12 @@ RSpec.describe User, type: :model do
 
       it 'kana_first_nameが全角カナでないと登録できない' do
         @user.kana_first_name = 'あいうえお'
+        @user.valid?
+        expect(@user.errors.full_messages).to include 'Kana first name is invalid'
+      end
+
+      it 'kana_first_nameが半角文字では登録できない' do
+        @user.kana_first_name = 'ｶﾀｶﾅ'
         @user.valid?
         expect(@user.errors.full_messages).to include 'Kana first name is invalid'
       end
