@@ -6,10 +6,12 @@ class User < ApplicationRecord
   has_many :items
   has_many :orders
 
-  validates :nickname, presence: true
-  validates :last_name, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
-  validates :first_name, presence: true, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
-  validates :kana_last_name, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
-  validates :kana_first_name, presence: true, format: { with: /\A[ァ-ヶー－]+\z/ }
-  validates :birthday, presence: true
+  with_options presence: true do
+    validates :nickname
+    validates :last_name, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
+    validates :first_name, format: { with: /\A[ぁ-んァ-ン一-龥]/ }
+    validates :kana_last_name, format: { with: /\A[ァ-ヶー－]+\z/ }
+    validates :kana_first_name, format: { with: /\A[ァ-ヶー－]+\z/ }
+    validates :birthday
+  end
 end
