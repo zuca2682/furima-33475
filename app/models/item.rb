@@ -14,8 +14,8 @@ class Item < ApplicationRecord
     validates :name
     validates :explain
     validates :image
-    
-    with_options  numericality: { other_than: 1 , message: "Select"} do
+
+    with_options numericality: { other_than: 1, message: 'Select' } do
       validates :category_id
       validates :state_id
       validates :burden_id
@@ -23,7 +23,7 @@ class Item < ApplicationRecord
       validates :delivery_id
     end
 
-    validates :price, numericality: { with: /\A[0-9]+\z/ , message: "Half-width number"}
-    validates :price, numericality: { greater_than:300, less_than: 9999999}
+    validates :price, numericality: { with: /\A[0-9]+\z/, message: 'Half-width number' }
+    validates :price, numericality: { greater_than: 300, less_than: 9_999_999 }
   end
 end

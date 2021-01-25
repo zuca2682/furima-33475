@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :item do
-    image { Faker::Lorem.sentence}
+    image { Faker::Lorem.sentence }
     name { Faker::Food.dish }
     explain { Faker::Food.description }
     category_id { Faker::Number.between(from: 2, to: 11) }
@@ -8,7 +8,7 @@ FactoryBot.define do
     burden_id { Faker::Number.between(from: 2, to: 3) }
     area_id { Faker::Number.between(from: 2, to: 48) }
     delivery_id { Faker::Number.between(from: 2, to: 4) }
-    price { Faker::Number.between(from: 300, to: 9999999) }
+    price { Faker::Number.between(from: 300, to: 9_999_999) }
     association :user
 
     after(:build) do |item|
