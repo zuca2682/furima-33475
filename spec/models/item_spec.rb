@@ -31,10 +31,22 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include "Explain can't be blank"
       end
 
+      it 'カテゴリーの情報が空の場合' do
+        @item.category_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Category can't be blank"
+      end
+
       it 'カテゴリーの情報が選択されていない場合' do
         @item.category_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include 'Category Select'
+      end
+
+      it '商品の状態についての情報が空の場合' do
+        @item.state_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include "State can't be blank"
       end
 
       it '商品の状態についての情報が選択されていない場合' do
@@ -43,16 +55,34 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include 'State Select'
       end
 
+      it '配送料の負担についての情報が空の場合' do
+        @item.burden_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Burden can't be blank"
+      end
+
       it '配送料の負担についての情報が選択されていない場合' do
         @item.burden_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include 'Burden Select'
       end
 
+      it '発送元の地域についての情報が空の場合' do
+        @item.area_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Area can't be blank"
+      end
+
       it '発送元の地域についての情報が選択されていない場合' do
         @item.area_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include 'Area Select'
+      end
+
+      it '発送までの日数についての情報が空の場合' do
+        @item.delivery_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include "Delivery can't be blank"
       end
 
       it '発送までの日数についての情報が選択されていない場合' do
@@ -65,6 +95,18 @@ RSpec.describe Item, type: :model do
         @item.price = ''
         @item.valid?
         expect(@item.errors.full_messages).to include "Price can't be blank"
+      end
+
+      it '価格が半角英数字混合の場合' do
+        @item.price = '123abc'
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Price Half-width number'
+      end
+
+      it '価格が半角英字の場合' do
+        @item.price = 'abcdefg'
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Price Half-width number'
       end
 
       it '価格が半角数字でない場合' do
