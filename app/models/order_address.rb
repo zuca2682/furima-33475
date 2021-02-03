@@ -1,8 +1,9 @@
 class OrderAddress
   include ActiveModel::Model
-  attr_accessor  :user_id, :item_id, :postal_code, :prefectures_id, :city, :addresses, :building, :phone_number, :order_id
+  attr_accessor :token, :user_id, :item_id, :postal_code, :prefectures_id, :city, :addresses, :building, :phone_number, :order_id
 
   with_options presence: true do
+    validates :token
     validates :postal_code, format: { with: /\A\d{3}[-]\d{4}\z/ }
     validates :prefectures_id, numericality: { other_than: 1, message: 'Select' }
     validates :city
@@ -11,7 +12,7 @@ class OrderAddress
   end
 
   def save
-    order = Order.create(user_id: user.id, item_id: item.id)
+    order = Order.create(user_id: user_id, item_id: item_id)
     Address.create(postal_code: postal_code, prefectures_id: prefectures_id, city: city, addresses: addresses, building: building, phone_number: phone_number, order_id: order.id)
   end
 end

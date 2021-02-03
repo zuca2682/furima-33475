@@ -11,4 +11,3 @@ window.addEventListener('load', () => {
       SalesProfit.innerHTML = (Math.floor(inputValue - Fee));
   })
 });
-
