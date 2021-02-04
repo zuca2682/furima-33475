@@ -21,17 +21,17 @@ RSpec.describe OrderAddress, type: :model do
       it '郵便番号が入力されていない場合' do
         @order_address.postal_code = nil
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Postal code can't be blank", "Postal code Input correctly")
+        expect(@order_address.errors.full_messages).to include("Postal code can't be blank", 'Postal code Input correctly')
       end
       it '郵便番号にハイフンが入力されていない場合' do
-        @order_address.postal_code = "1234567"
+        @order_address.postal_code = '1234567'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Postal code Input correctly")
+        expect(@order_address.errors.full_messages).to include('Postal code Input correctly')
       end
       it '都道府県が選択されていない場合' do
-        @order_address.prefectures_id = "1"
+        @order_address.prefectures_id = '1'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Prefectures Select")
+        expect(@order_address.errors.full_messages).to include('Prefectures Select')
       end
       it '市区町村が入力されていない場合' do
         @order_address.city = nil
@@ -46,17 +46,17 @@ RSpec.describe OrderAddress, type: :model do
       it '電話番号が入力されていない場合' do
         @order_address.phone_number = nil
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Phone number can't be blank", "Phone number Input only number")
+        expect(@order_address.errors.full_messages).to include("Phone number can't be blank", 'Phone number Input only number')
       end
       it '電話番号にハイフンが入力されている場合' do
-        @order_address.phone_number = "090-1234-5678"
+        @order_address.phone_number = '090-1234-5678'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Phone number Input only number")
+        expect(@order_address.errors.full_messages).to include('Phone number Input only number')
       end
       it '電話番号が半角数字で入力されていない場合' do
-        @order_address.phone_number = "０９０１２３４５６７８"
+        @order_address.phone_number = '０９０１２３４５６７８'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Phone number Input only number")
+        expect(@order_address.errors.full_messages).to include('Phone number Input only number')
       end
     end
   end

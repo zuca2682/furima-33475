@@ -4,7 +4,7 @@ class OrderAddress
 
   with_options presence: true do
     validates :token
-    validates :postal_code, format: { with: /\A\d{3}[-]\d{4}\z/, message: 'Input correctly'}
+    validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, message: 'Input correctly' }
     validates :prefectures_id, numericality: { other_than: 1, message: 'Select' }
     validates :city
     validates :addresses
@@ -13,6 +13,7 @@ class OrderAddress
 
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
-    Address.create(postal_code: postal_code, prefectures_id: prefectures_id, city: city, addresses: addresses, building: building, phone_number: phone_number, order_id: order.id)
+    Address.create(postal_code: postal_code, prefectures_id: prefectures_id, city: city, addresses: addresses,
+                   building: building, phone_number: phone_number, order_id: order.id)
   end
 end
