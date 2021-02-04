@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   before_action :set_item, only: [:index, :new, :create]
 
   def index
-    @order_address = Order.new
+    @order_address = OrderAddress.new
     redirect_to root_path if current_user == @item.user || @item.order.present?
   end
 
@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
-    params.require(:order).permit(:postal_code, :prefectures_id, :city, :addresses, :building, :phone_number).merge(
+    params.require(:order_address).permit(:postal_code, :prefectures_id, :city, :addresses, :building, :phone_number).merge(
       user_id: current_user.id, item_id: params[:item_id], token: params[:token]
     )
   end
