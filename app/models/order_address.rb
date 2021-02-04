@@ -4,11 +4,11 @@ class OrderAddress
 
   with_options presence: true do
     validates :token
-    validates :postal_code, format: { with: /\A\d{3}[-]\d{4}\z/ }
+    validates :postal_code, format: { with: /\A\d{3}[-]\d{4}\z/, message: 'Input correctly'}
     validates :prefectures_id, numericality: { other_than: 1, message: 'Select' }
     validates :city
     validates :addresses
-    validates :phone_number, numericality: { with: /\A[0-9]+\{,11}\z/, message: 'Half-width number' }
+    validates :phone_number, numericality: { with: /\A[0-9]+\{,11}\z/, message: 'Input only number' }
   end
 
   def save
